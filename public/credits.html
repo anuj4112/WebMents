@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Credits - WebMents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Poppins',sans-serif; background:#f5f7fb; min-height:100vh; }
+
+        /* NAVBAR */
+        .navbar {
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            padding:16px 40px; display:flex; justify-content:space-between;
+            align-items:center; box-shadow:0 2px 10px rgba(0,0,0,.15);
+        }
+        .logo { font-size:24px; font-weight:700; color:#fff; cursor:pointer; letter-spacing:1px; }
+        .logo span { color:#ffd700; }
+        .nav-right { display:flex; align-items:center; gap:14px; }
+        .credits-badge {
+            display:flex; align-items:center; gap:8px;
+            background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.5);
+            padding:8px 18px; border-radius:20px; color:#fff; font-size:14px; font-weight:600;
+        }
+        .credits-count { font-size:20px; font-weight:700; color:#ffd700; }
+        .back-btn {
+            padding:8px 18px; background:rgba(255,255,255,.2); border:1px solid #fff;
+            color:#fff; border-radius:20px; cursor:pointer; transition:.3s;
+            font-family:'Poppins',sans-serif; font-size:14px;
+        }
+        .back-btn:hover { background:#fff; color:#667eea; }
+
+        /* HERO BANNER */
+        .hero {
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            padding:50px 20px 60px; text-align:center; color:#fff;
+        }
+        .hero h1 { font-size:36px; font-weight:700; margin-bottom:10px; }
+        .hero p { font-size:16px; opacity:.85; max-width:520px; margin:0 auto; line-height:1.7; }
+        .hero .free-badge {
+            display:inline-block; margin-top:18px;
+            background:rgba(255,215,0,.25); border:2px solid #ffd700;
+            color:#ffd700; padding:8px 24px; border-radius:30px;
+            font-size:14px; font-weight:700; letter-spacing:.5px;
+        }
+
+        /* CONTAINER */
+        .container { max-width:1100px; margin:-30px auto 0; padding:0 20px 50px; position:relative; z-index:1; }
+
+        /* HOW IT WORKS */
+        .how-section {
+            background:#fff; border-radius:16px; padding:28px 32px;
+            box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:32px;
+            display:flex; gap:0; flex-wrap:wrap;
+        }
+        .how-item { flex:1; min-width:180px; text-align:center; padding:16px 12px; }
+        .how-item .hi-icon { font-size:36px; margin-bottom:10px; }
+        .how-item h4 { font-size:15px; color:#333; font-weight:700; margin-bottom:6px; }
+        .how-item p { font-size:13px; color:#888; line-height:1.5; }
+        .how-divider { width:1px; background:#eee; margin:16px 0; }
+
+        /* PACKAGES GRID */
+        .packages-title { font-size:22px; font-weight:700; color:#333; margin-bottom:20px; }
+        .packages-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:22px; margin-bottom:40px; }
+
+        .package-card {
+            background:#fff; border-radius:16px; padding:28px 22px;
+            box-shadow:0 2px 12px rgba(0,0,0,.07); text-align:center;
+            border:2px solid transparent; transition:.3s; position:relative; overflow:hidden;
+        }
+        .package-card:hover { transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,.12); border-color:#667eea; }
+        .package-card.popular { border-color:#667eea; }
+        .popular-badge {
+            position:absolute; top:0; right:0;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            color:#fff; font-size:11px; font-weight:700;
+            padding:5px 14px; border-radius:0 16px 0 12px; letter-spacing:.5px;
+        }
+        .package-card.best-value { border-color:#ffd700; }
+        .best-badge {
+            position:absolute; top:0; right:0;
+            background:linear-gradient(135deg,#ffd700,#ffaa00);
+            color:#333; font-size:11px; font-weight:700;
+            padding:5px 14px; border-radius:0 16px 0 12px; letter-spacing:.5px;
+        }
+
+        .pkg-icon { font-size:40px; margin-bottom:12px; }
+        .pkg-credits { font-size:42px; font-weight:700; color:#667eea; line-height:1; }
+        .pkg-credits span { font-size:16px; font-weight:600; color:#999; }
+        .pkg-name { font-size:15px; font-weight:700; color:#333; margin:10px 0 6px; }
+        .pkg-desc { font-size:12px; color:#999; margin-bottom:18px; line-height:1.5; }
+        .pkg-price {
+            font-size:22px; font-weight:700; color:#28a745; margin-bottom:18px;
+        }
+        .pkg-price .original { font-size:14px; color:#ccc; text-decoration:line-through; margin-right:6px; }
+        .pkg-btn {
+            width:100%; padding:12px; background:linear-gradient(135deg,#667eea,#764ba2);
+            color:#fff; border:none; border-radius:10px; cursor:pointer;
+            font-weight:700; font-size:14px; font-family:'Poppins',sans-serif; transition:.3s;
+        }
+        .pkg-btn:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(102,126,234,.4); }
+        .pkg-btn:disabled { background:#ccc; cursor:not-allowed; transform:none; box-shadow:none; }
+        .pkg-btn.loading-btn { opacity:.7; cursor:wait; }
+
+        /* SUCCESS BANNER */
+        .success-banner {
+            display:none; background:linear-gradient(135deg,#28a745,#20c997);
+            color:#fff; border-radius:14px; padding:22px 28px;
+            text-align:center; margin-bottom:28px; animation:popIn .4s ease;
+        }
+        .success-banner.show { display:block; }
+        .success-banner h3 { font-size:20px; margin-bottom:6px; }
+        .success-banner p { font-size:14px; opacity:.9; }
+        @keyframes popIn { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
+
+        /* TOAST */
+        .toast {
+            position:fixed; bottom:28px; right:28px; z-index:2000;
+            padding:14px 22px; border-radius:10px; font-size:14px; font-weight:600;
+            color:#fff; display:none; animation:slideUp .3s ease; max-width:320px;
+        }
+        @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .toast.success { background:#28a745; }
+        .toast.error   { background:#dc3545; }
+
+        @media(max-width:768px){
+            .navbar { padding:14px 16px; flex-direction:column; gap:10px; }
+            .hero h1 { font-size:26px; }
+            .how-section { flex-direction:column; }
+            .how-divider { display:none; }
+            .packages-grid { grid-template-columns:1fr 1fr; }
+        }
+        @media(max-width:480px){
+            .packages-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo" onclick="goHome()">Web<span>Ments</span></div>
+    <div class="nav-right">
+        <div class="credits-badge">
+            <span>🪙</span>
+            <span>Credits:</span>
+            <span class="credits-count" id="creditsDisplay">—</span>
+        </div>
+        <button class="back-btn" onclick="location.href='/buyer.html'">← Dashboard</button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>🪙 Buy Credits</h1>
+    <p>Credits let you unlock manufacturer contact details — phone, address, GST, and more. One credit per manufacturer.</p>
+    <div class="free-badge">🎉 All Packages FREE During Beta</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="container">
+
+    <!-- SUCCESS BANNER -->
+    <div class="success-banner" id="successBanner">
+        <h3 id="successTitle">🎉 Credits Added!</h3>
+        <p id="successMsg">Your credits have been added to your account.</p>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="how-section">
+        <div class="how-item">
+            <div class="hi-icon">🪙</div>
+            <h4>Buy Credits</h4>
+            <p>Choose a package below and claim your free credits instantly.</p>
+        </div>
+        <div class="how-divider"></div>
+        <div class="how-item">
+            <div class="hi-icon">🔒</div>
+            <h4>Unlock Contacts</h4>
+            <p>Spend 1 credit to reveal a manufacturer's full contact info.</p>
+        </div>
+        <div class="how-divider"></div>
+        <div class="how-item">
+            <div class="hi-icon">📋</div>
+            <h4>View Details</h4>
+            <p>See phone, address, GST, email and all their products on one page.</p>
+        </div>
+        <div class="how-divider"></div>
+        <div class="how-item">
+            <div class="hi-icon">♾️</div>
+            <h4>No Expiry</h4>
+            <p>Credits never expire. Use them whenever you need.</p>
+        </div>
+    </div>
+
+    <!-- PACKAGES -->
+    <div class="packages-title">Choose a Package</div>
+    <div class="packages-grid" id="packagesGrid"></div>
+
+</div>
+
+<script>
+    const buyerEmail = localStorage.getItem('email');
+    let currentCredits = 0;
+
+    function goHome() {
+        const role = localStorage.getItem('role');
+        if (role === 'manufacturer') location.href = '/manufacturer.html';
+        else if (role === 'buyer') location.href = '/buyer.html';
+        else location.href = '/index.html';
+    }
+
+    const PACKAGES = [
+        { id:'starter',    credits:10,  icon:'🌱', name:'Starter',    desc:'Perfect for trying out the platform.',          badge:null },
+        { id:'basic',      credits:25,  icon:'⚡', name:'Basic',      desc:'Unlock 25 manufacturer contacts.',              badge:null },
+        { id:'standard',   credits:50,  icon:'🚀', name:'Standard',   desc:'Great for active buyers exploring suppliers.',   badge:'POPULAR' },
+        { id:'pro',        credits:100, icon:'💼', name:'Pro',        desc:'Serious sourcing for growing businesses.',       badge:null },
+        { id:'business',   credits:150, icon:'🏆', name:'Business',   desc:'High-volume sourcing made easy.',                badge:null },
+        { id:'enterprise', credits:200, icon:'👑', name:'Enterprise', desc:'Maximum reach across all manufacturers.',        badge:'BEST VALUE' },
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!buyerEmail) { location.href = '/login.html'; return; }
+        loadCredits();
+        renderPackages();
+    });
+
+    function showToast(msg, type = 'success') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type;
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 3500);
+    }
+
+    async function loadCredits() {
+        try {
+            const res = await fetch('/credits/' + buyerEmail);
+            const data = await res.json();
+            currentCredits = data.credits || 0;
+            document.getElementById('creditsDisplay').textContent = currentCredits;
+        } catch(e) {}
+    }
+
+    function renderPackages() {
+        const grid = document.getElementById('packagesGrid');
+        grid.innerHTML = PACKAGES.map(pkg => {
+            const badgeHTML = pkg.badge === 'POPULAR'
+                ? `<div class="popular-badge">⭐ POPULAR</div>`
+                : pkg.badge === 'BEST VALUE'
+                ? `<div class="best-badge">👑 BEST VALUE</div>`
+                : '';
+            const cardClass = pkg.badge === 'POPULAR' ? 'package-card popular'
+                            : pkg.badge === 'BEST VALUE' ? 'package-card best-value'
+                            : 'package-card';
+            return `
+                <div class="${cardClass}">
+                    ${badgeHTML}
+                    <div class="pkg-icon">${pkg.icon}</div>
+                    <div class="pkg-credits">${pkg.credits} <span>credits</span></div>
+                    <div class="pkg-name">${pkg.name}</div>
+                    <div class="pkg-desc">${pkg.desc}</div>
+                    <div class="pkg-price">FREE <span class="original">₹${pkg.credits * 5}</span></div>
+                    <button class="pkg-btn" id="btn-${pkg.id}" onclick="claimPackage('${pkg.id}', ${pkg.credits}, '${pkg.name}')">
+                        Claim ${pkg.credits} Credits
+                    </button>
+                </div>`;
+        }).join('');
+    }
+
+    async function claimPackage(pkgId, amount, name) {
+        const btn = document.getElementById('btn-' + pkgId);
+        btn.disabled = true;
+        btn.classList.add('loading-btn');
+        btn.textContent = 'Adding...';
+
+        try {
+            const res = await fetch('/add-credits', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: buyerEmail, amount })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                currentCredits = data.credits;
+                document.getElementById('creditsDisplay').textContent = currentCredits;
+
+                // Show success banner
+                document.getElementById('successTitle').textContent = `🎉 ${amount} Credits Added!`;
+                document.getElementById('successMsg').textContent = `You claimed the ${name} package. Your new balance is ${currentCredits} credits.`;
+                const banner = document.getElementById('successBanner');
+                banner.classList.add('show');
+                banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                showToast(`🪙 ${amount} credits added! Balance: ${currentCredits}`, 'success');
+
+                btn.textContent = '✅ Claimed!';
+                btn.style.background = '#28a745';
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.classList.remove('loading-btn');
+                    btn.style.background = '';
+                    btn.textContent = `Claim ${amount} Credits`;
+                }, 3000);
+            } else {
+                showToast('❌ ' + data.message, 'error');
+                btn.disabled = false;
+                btn.classList.remove('loading-btn');
+                btn.textContent = `Claim ${amount} Credits`;
+            }
+        } catch(e) {
+            showToast('❌ Error claiming credits.', 'error');
+            btn.disabled = false;
+            btn.classList.remove('loading-btn');
+            btn.textContent = `Claim ${amount} Credits`;
+        }
+    }
+</script>
+</body>
+</html>

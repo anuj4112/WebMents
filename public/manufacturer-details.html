@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturer Details - WebMents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Poppins',sans-serif; background:#f5f7fb; min-height:100vh; }
+
+        /* NAVBAR */
+        .navbar {
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            padding:16px 40px; display:flex; justify-content:space-between;
+            align-items:center; box-shadow:0 2px 10px rgba(0,0,0,.15);
+        }
+        .logo { font-size:24px; font-weight:700; color:#fff; cursor:pointer; letter-spacing:1px; }
+        .logo span { color:#ffd700; }
+        .nav-right { display:flex; align-items:center; gap:14px; }
+        .credits-badge {
+            display:flex; align-items:center; gap:8px;
+            background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.5);
+            padding:8px 18px; border-radius:20px; color:#fff; font-size:14px; font-weight:600;
+        }
+        .credits-count { font-size:20px; font-weight:700; color:#ffd700; }
+        .back-btn {
+            padding:8px 18px; background:rgba(255,255,255,.2); border:1px solid #fff;
+            color:#fff; border-radius:20px; cursor:pointer; transition:.3s;
+            font-family:'Poppins',sans-serif; font-size:14px;
+        }
+        .back-btn:hover { background:#fff; color:#667eea; }
+
+        /* CONTAINER */
+        .container { max-width:1100px; margin:0 auto; padding:36px 20px; }
+
+        /* PROFILE HERO */
+        .profile-hero {
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            border-radius:20px; padding:40px; display:flex; align-items:center;
+            gap:32px; margin-bottom:32px; box-shadow:0 8px 30px rgba(102,126,234,.3);
+            flex-wrap:wrap;
+        }
+        .profile-logo {
+            width:110px; height:110px; border-radius:50%; object-fit:cover;
+            border:4px solid rgba(255,255,255,.6); flex-shrink:0;
+        }
+        .profile-info { flex:1; min-width:200px; }
+        .profile-name { font-size:30px; font-weight:700; color:#fff; margin-bottom:8px; }
+        .profile-tags { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+        .profile-tag {
+            background:rgba(255,255,255,.2); color:#fff; padding:5px 14px;
+            border-radius:20px; font-size:13px; font-weight:600;
+        }
+        .profile-tag.gold { background:rgba(255,215,0,.25); color:#ffd700; }
+
+        /* CONTACT CARD */
+        .contact-card {
+            background:#fff; border-radius:16px; padding:28px;
+            box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:28px;
+        }
+        .contact-card h2 { font-size:20px; color:#333; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+        .contact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+        .contact-item {
+            background:#f8f9ff; border-radius:12px; padding:16px 20px;
+            display:flex; align-items:center; gap:14px;
+        }
+        .contact-icon { font-size:26px; flex-shrink:0; }
+        .contact-label { font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+        .contact-value { font-size:15px; color:#333; font-weight:600; margin-top:2px; word-break:break-all; }
+
+        /* PRODUCTS */
+        .products-section { background:#fff; border-radius:16px; padding:28px; box-shadow:0 2px 12px rgba(0,0,0,.07); }
+        .products-section h2 { font-size:20px; color:#333; margin-bottom:22px; display:flex; align-items:center; gap:10px; }
+        .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
+        .product-card {
+            background:#f8f9ff; border-radius:12px; overflow:hidden;
+            transition:.3s; border:2px solid transparent; cursor:pointer;
+        }
+        .product-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,.1); border-color:#667eea; }
+        .product-img { width:100%; height:170px; object-fit:cover; background:#ddd; }
+        .product-info { padding:14px; }
+        .product-name { font-size:14px; font-weight:600; color:#333; margin-bottom:5px; }
+        .product-price { font-size:18px; font-weight:700; color:#667eea; margin-bottom:3px; }
+        .product-meta { font-size:11px; color:#999; }
+
+        /* EMPTY */
+        .empty-state { text-align:center; padding:50px 20px; color:#bbb; grid-column:1/-1; }
+        .empty-state .icon { font-size:52px; margin-bottom:12px; }
+
+        /* LOADING */
+        .loading { text-align:center; padding:80px 20px; color:#667eea; font-size:18px; }
+        .spinner { font-size:48px; animation:spin 1s linear infinite; display:block; margin-bottom:16px; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+
+        /* ACCESS DENIED */
+        .access-denied {
+            text-align:center; padding:80px 20px;
+            background:#fff; border-radius:20px; box-shadow:0 2px 12px rgba(0,0,0,.07);
+        }
+        .access-denied .icon { font-size:72px; margin-bottom:20px; }
+        .access-denied h2 { font-size:26px; color:#333; margin-bottom:12px; }
+        .access-denied p { color:#888; font-size:15px; margin-bottom:28px; }
+        .btn-primary {
+            padding:13px 32px; background:linear-gradient(135deg,#667eea,#764ba2);
+            color:#fff; border:none; border-radius:10px; cursor:pointer;
+            font-weight:700; font-size:15px; font-family:'Poppins',sans-serif; transition:.3s;
+        }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(102,126,234,.4); }
+
+        /* TOAST */
+        .toast {
+            position:fixed; bottom:28px; right:28px; z-index:2000;
+            padding:14px 22px; border-radius:10px; font-size:14px; font-weight:600;
+            color:#fff; display:none; animation:slideUp .3s ease; max-width:320px;
+        }
+        @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .toast.success { background:#28a745; }
+        .toast.error   { background:#dc3545; }
+
+        @media(max-width:768px){
+            .navbar { padding:14px 16px; flex-direction:column; gap:10px; }
+            .profile-hero { flex-direction:column; text-align:center; padding:28px 20px; }
+            .profile-tags { justify-content:center; }
+            .container { padding:20px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo" onclick="goHome()">Web<span>Ments</span></div>
+    <div class="nav-right">
+        <div class="credits-badge">
+            <span>🪙</span>
+            <span>Credits:</span>
+            <span class="credits-count" id="creditsDisplay">—</span>
+        </div>
+        <button class="back-btn" onclick="location.href='/buyer.html'">← Back to Dashboard</button>
+    </div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<!-- MAIN CONTENT -->
+<div class="container" id="mainContent">
+    <div class="loading">
+        <span class="spinner">⚙️</span>
+        Loading manufacturer details...
+    </div>
+</div>
+
+<script>
+    const buyerEmail = localStorage.getItem('email');
+    const params = new URLSearchParams(window.location.search);
+    const mfrEmail = params.get('email');
+
+    function goHome() {
+        const role = localStorage.getItem('role');
+        if (role === 'manufacturer') location.href = '/manufacturer.html';
+        else if (role === 'buyer') location.href = '/buyer.html';
+        else location.href = '/index.html';
+    }
+
+    function showToast(msg, type = 'success') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type;
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 3500);
+    }
+
+    async function init() {
+        if (!buyerEmail) { location.href = '/login.html'; return; }
+        if (!mfrEmail)   { location.href = '/buyer.html'; return; }
+
+        // Load credits
+        try {
+            const cr = await fetch('/credits/' + buyerEmail).then(r => r.json());
+            document.getElementById('creditsDisplay').textContent = cr.credits || 0;
+        } catch(e) {}
+
+        // Check unlock
+        const unlockRes = await fetch(`/check-unlock/${buyerEmail}/${mfrEmail}`).then(r => r.json()).catch(() => ({ unlocked: false }));
+
+        if (!unlockRes.unlocked) {
+            renderAccessDenied();
+            return;
+        }
+
+        // Load manufacturer + contact + products in parallel
+        const [mfrsRes, contactRes, productsRes] = await Promise.all([
+            fetch('/manufacturers').then(r => r.json()).catch(() => []),
+            fetch(`/manufacturer-contact/${buyerEmail}/${mfrEmail}`).then(r => r.json()).catch(() => ({})),
+            fetch(`/products/${mfrEmail}`).then(r => r.json()).catch(() => [])
+        ]);
+
+        const mfr = mfrsRes.find(m => m.email === mfrEmail);
+        if (!mfr) { renderAccessDenied(); return; }
+
+        renderPage(mfr, contactRes, productsRes);
+    }
+
+    function renderAccessDenied() {
+        document.getElementById('mainContent').innerHTML = `
+            <div class="access-denied">
+                <div class="icon">🔒</div>
+                <h2>Contact Not Unlocked</h2>
+                <p>You need to spend 1 credit to view this manufacturer's full details and contact information.</p>
+                <button class="btn-primary" onclick="location.href='/buyer.html'">← Go Back to Dashboard</button>
+            </div>`;
+    }
+
+    function renderPage(mfr, contact, products) {
+        const initial = encodeURIComponent(mfr.name.charAt(0));
+        const logoSrc = mfr.logo
+            ? `/uploads/${mfr.logo}`
+            : `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110'%3E%3Crect fill='%23ffffff33' width='110' height='110' rx='55'/%3E%3Ctext fill='white' x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='44'%3E${initial}%3C/text%3E%3C/svg%3E`;
+
+        const productsHTML = products.length
+            ? products.map(p => `
+                <div class="product-card" onclick="location.href='/product.html?id=${p._id}'">
+                    <img src="/uploads/${p.image}" alt="${p.name}" class="product-img"
+                         onerror="this.style.display='none'">
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">₹${p.price}</div>
+                        <div class="product-meta">📁 ${p.category || '—'} &nbsp;·&nbsp; Stock: ${p.stock ?? '—'}</div>
+                    </div>
+                </div>`).join('')
+            : `<div class="empty-state"><div class="icon">📦</div><h3>No products listed yet</h3></div>`;
+
+        document.getElementById('mainContent').innerHTML = `
+            <!-- HERO -->
+            <div class="profile-hero">
+                <img src="${logoSrc}" class="profile-logo" alt="${mfr.name}"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22110%22 height=%22110%22%3E%3Crect fill=%22%23ffffff33%22 width=%22110%22 height=%22110%22 rx=%2255%22/%3E%3Ctext fill=%22white%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2244%22%3E${initial}%3C/text%3E%3C/svg%3E'">
+                <div class="profile-info">
+                    <div class="profile-name">${mfr.name}</div>
+                    <div class="profile-tags">
+                        ${mfr.city        ? `<span class="profile-tag">📍 ${mfr.city}</span>` : ''}
+                        ${mfr.specialization ? `<span class="profile-tag gold">🏷️ ${mfr.specialization}</span>` : ''}
+                        <span class="profile-tag">✅ Contact Unlocked</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT DETAILS -->
+            <div class="contact-card">
+                <h2>📋 Contact Information</h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">${contact.email || mfr.email}</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <div class="contact-label">Phone</div>
+                            <div class="contact-value">${contact.phone || 'Not provided'}</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <div class="contact-label">Address</div>
+                            <div class="contact-value">${contact.address || 'Not provided'}</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🏛️</span>
+                        <div>
+                            <div class="contact-label">GST Number</div>
+                            <div class="contact-value">${contact.gst || 'Not provided'}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTS -->
+            <div class="products-section">
+                <h2>📦 Products by ${mfr.name} <span style="background:#667eea;color:#fff;padding:3px 12px;border-radius:20px;font-size:13px;">${products.length}</span></h2>
+                <div class="products-grid">${productsHTML}</div>
+            </div>`;
+
+        document.title = mfr.name + ' — WebMents';
+    }
+
+    init();
+</script>
+</body>
+</html>

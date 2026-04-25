@@ -1,0 +1,23 @@
+# WebMents Python Backend Dependencies
+# Author: Anuj Singla (2210991317)
+# Institution: Chitkara University
+
+# Core Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Database
+Flask-PyMongo==2.3.0
+pymongo==4.6.1
+
+# CORS Support
+Flask-CORS==4.0.0
+
+# Security (for future password hashing)
+bcrypt==4.1.2
+
+# Environment Variables (optional)
+python-dotenv==1.0.0
+
+# Development Tools
+python-dateutil==2.8.2

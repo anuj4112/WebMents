@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard - WebMents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Poppins',sans-serif; background:#f5f7fb; min-height:100vh; }
+
+        .navbar {
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            padding:16px 40px; display:flex; justify-content:space-between;
+            align-items:center; box-shadow:0 2px 10px rgba(0,0,0,.15);
+        }
+        .logo { font-size:24px; font-weight:700; color:#fff; cursor:pointer; letter-spacing:1px; }
+        .logo span { color:#ffd700; }
+        .nav-right { display:flex; align-items:center; gap:14px; }
+
+        .credits-badge {
+            display:flex; align-items:center; gap:8px;
+            background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.5);
+            padding:8px 18px; border-radius:20px; color:#fff; font-size:14px; font-weight:600;
+        }
+        .credits-count { font-size:20px; font-weight:700; color:#ffd700; }
+
+        .buy-credits-btn {
+            padding:8px 18px; background:linear-gradient(135deg,#ffd700,#ffaa00);
+            border:none; color:#333; border-radius:20px; cursor:pointer; transition:.3s;
+            font-family:'Poppins',sans-serif; font-size:14px; font-weight:700;
+        }
+        .buy-credits-btn:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(255,170,0,.5); }
+
+        .logout-btn {
+            padding:8px 18px; background:rgba(255,255,255,.2); border:1px solid #fff;
+            color:#fff; border-radius:20px; cursor:pointer; transition:.3s;
+            font-family:'Poppins',sans-serif; font-size:14px;
+        }
+        .logout-btn:hover { background:#fff; color:#667eea; }
+
+        .container { max-width:1300px; margin:0 auto; padding:30px 20px; }
+
+        .page-header { margin-bottom:28px; }
+        .page-header h1 { font-size:30px; color:#333; }
+        .page-header p { color:#666; margin-top:6px; }
+
+        /* Search */
+        .search-section {
+            background:#fff; padding:24px 28px; border-radius:14px;
+            box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:28px;
+        }
+        .search-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+        .search-box { position:relative; }
+        .search-box input {
+            width:100%; padding:13px 44px 13px 14px; border:2px solid #e0e0e0;
+            border-radius:10px; font-size:15px; font-family:'Poppins',sans-serif; transition:.3s;
+        }
+        .search-box input:focus { outline:none; border-color:#667eea; box-shadow:0 0 0 3px rgba(102,126,234,.1); }
+        .search-icon { position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:18px; color:#aaa; }
+
+        /* Section */
+        .section-card {
+            background:#fff; padding:28px; border-radius:14px;
+            box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:28px;
+        }
+        .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
+        .section-header h2 { font-size:22px; color:#333; display:flex; align-items:center; gap:10px; }
+        .count-badge {
+            background:#667eea; color:#fff; padding:4px 14px;
+            border-radius:20px; font-size:13px; font-weight:600;
+        }
+
+        /* Manufacturer cards */
+        .manufacturers-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:22px; }
+        .manufacturer-card {
+            background:linear-gradient(135deg,#f8f9ff,#fff); border-radius:13px;
+            padding:24px; text-align:center; transition:.3s; border:2px solid transparent;
+        }
+        .manufacturer-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,.1); border-color:#667eea; }
+        .mfr-logo {
+            width:76px; height:76px; border-radius:50%; object-fit:cover;
+            margin:0 auto 14px; border:3px solid #667eea; display:block;
+        }
+        .mfr-name { font-size:18px; font-weight:700; color:#333; margin-bottom:6px; }
+        .mfr-city { color:#888; font-size:13px; margin-bottom:6px; }
+        .mfr-spec { color:#667eea; font-size:12px; font-weight:600; margin-bottom:16px; }
+        .mfr-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+        .btn-catalogue {
+            padding:9px 18px; background:linear-gradient(135deg,#667eea,#764ba2);
+            color:#fff; border:none; border-radius:8px; cursor:pointer;
+            font-weight:600; font-size:13px; transition:.3s; font-family:'Poppins',sans-serif;
+        }
+        .btn-catalogue:hover { transform:translateY(-2px); box-shadow:0 5px 14px rgba(102,126,234,.4); }
+        .btn-contact-locked {
+            padding:9px 18px; background:#fff3cd; color:#856404;
+            border:1.5px solid #ffc107; border-radius:8px; cursor:pointer;
+            font-weight:600; font-size:13px; transition:.3s; font-family:'Poppins',sans-serif;
+        }
+        .btn-contact-locked:hover { background:#ffe69c; }
+        .btn-contact-unlocked {
+            padding:9px 18px; background:#d4edda; color:#155724;
+            border:1.5px solid #28a745; border-radius:8px; cursor:pointer;
+            font-weight:600; font-size:13px; font-family:'Poppins',sans-serif;
+        }
+
+        /* Products grid */
+        .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:22px; }
+        .product-card {
+            background:#f8f9ff; border-radius:12px; overflow:hidden;
+            transition:.3s; border:2px solid transparent; cursor:pointer;
+        }
+        .product-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,.1); border-color:#667eea; }
+        .product-img { width:100%; height:190px; object-fit:cover; background:#ddd; }
+        .product-info { padding:14px; }
+        .product-name { font-size:15px; font-weight:600; color:#333; margin-bottom:6px; }
+        .product-price { font-size:20px; font-weight:700; color:#667eea; margin-bottom:4px; }
+        .product-cat { font-size:12px; color:#888; }
+
+        /* Empty state */
+        .empty-state { text-align:center; padding:50px 20px; color:#bbb; grid-column:1/-1; }
+        .empty-state .icon { font-size:56px; margin-bottom:14px; }
+        .empty-state h3 { font-size:20px; margin-bottom:6px; }
+
+        /* Modal overlay */
+        .modal-overlay {
+            display:none; position:fixed; inset:0;
+            background:rgba(0,0,0,.55); z-index:1000;
+            justify-content:center; align-items:center;
+        }
+        .modal-overlay.open { display:flex; }
+        .modal {
+            background:#fff; border-radius:18px; padding:36px 32px;
+            max-width:420px; width:90%; text-align:center;
+            animation:popIn .3s ease;
+        }
+        @keyframes popIn { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+        .modal h3 { font-size:22px; color:#333; margin-bottom:10px; }
+        .modal p { color:#666; font-size:15px; margin-bottom:22px; line-height:1.6; }
+        .modal-btns { display:flex; gap:12px; justify-content:center; }
+        .modal-btn {
+            padding:12px 28px; border:none; border-radius:9px; font-size:15px;
+            font-weight:600; cursor:pointer; transition:.3s; font-family:'Poppins',sans-serif;
+        }
+        .modal-btn-confirm { background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; }
+        .modal-btn-confirm:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(102,126,234,.4); }
+        .modal-btn-cancel { background:#e8e8e8; color:#333; }
+        .modal-btn-cancel:hover { background:#d5d5d5; }
+
+        /* Toast */
+        .toast {
+            position:fixed; bottom:28px; right:28px; z-index:2000;
+            padding:14px 22px; border-radius:10px; font-size:14px; font-weight:600;
+            color:#fff; display:none; animation:slideUp .3s ease;
+            max-width:320px;
+        }
+        @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .toast.success { background:#28a745; }
+        .toast.error   { background:#dc3545; }
+        .toast.info    { background:#667eea; }
+
+        @media(max-width:768px){
+            .navbar { padding:14px 16px; flex-direction:column; gap:12px; }
+            .container { padding:16px 12px; }
+            .manufacturers-grid, .products-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo" onclick="goHome()">Web<span>Ments</span></div>
+    <div class="nav-right">
+        <div class="credits-badge">
+            <span>🪙</span>
+            <span>Credits:</span>
+            <span class="credits-count" id="creditsDisplay">5</span>
+        </div>
+        <button class="buy-credits-btn" onclick="location.href='/credits.html'">🪙 Buy Credits</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<!-- UNLOCK CONFIRM MODAL -->
+<div class="modal-overlay" id="unlockModal">
+    <div class="modal">
+        <div style="font-size:48px;margin-bottom:12px;">🔓</div>
+        <h3>Unlock Contact Info</h3>
+        <p>This will use <strong>1 credit</strong> to reveal the manufacturer's phone, email, and address.<br>You have <strong id="modalCredits">0</strong> credit(s) remaining.</p>
+        <div class="modal-btns">
+            <button class="modal-btn modal-btn-confirm" onclick="confirmUnlock()">Use 1 Credit</button>
+            <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MAIN -->
+<div class="container">
+    <div class="page-header">
+        <h1>👋 Buyer Dashboard</h1>
+        <p>Discover manufacturers, browse products, and unlock contact details with credits.</p>
+    </div>
+
+    <!-- Search -->
+    <div class="search-section">
+        <div class="search-grid">
+            <div class="search-box">
+                <input type="text" id="citySearch" placeholder="Search manufacturers by city..." oninput="filterManufacturers()">
+                <span class="search-icon">📍</span>
+            </div>
+            <div class="search-box">
+                <input type="text" id="productSearch" placeholder="Search products by name or category..." oninput="filterProducts()">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manufacturers -->
+    <div class="section-card">
+        <div class="section-header">
+            <h2>🏭 Manufacturers</h2>
+            <span class="count-badge" id="mfrCount">0</span>
+        </div>
+        <div class="manufacturers-grid" id="manList"></div>
+    </div>
+
+    <!-- Products -->
+    <div class="section-card">
+        <div class="section-header">
+            <h2>📦 All Products</h2>
+            <span class="count-badge" id="productCount">0</span>
+        </div>
+        <div class="products-grid" id="productsList"></div>
+    </div>
+</div>
+
+<script>
+    const buyerEmail = localStorage.getItem('email');
+    let allManufacturers = [];
+    let allProducts = [];
+    let pendingUnlockEmail = null;   // manufacturer email waiting for confirm
+    let currentCredits = 0;
+
+    // ── INIT ──
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!buyerEmail) { location.href = '/login.html'; return; }
+        loadCredits();
+        loadManufacturers();
+        loadAllProducts();
+    });
+
+    // ── TOAST ──
+    function showToast(msg, type = 'success') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type;
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 3500);
+    }
+
+    // ── CREDITS ──
+    async function loadCredits() {
+        try {
+            const res = await fetch('/credits/' + buyerEmail);
+            const data = await res.json();
+            currentCredits = data.credits || 0;
+            document.getElementById('creditsDisplay').textContent = currentCredits;
+        } catch(e) { console.error(e); }
+    }
+
+    // ── MANUFACTURERS ──
+    async function loadManufacturers() {
+        try {
+            const res = await fetch('/manufacturers');
+            allManufacturers = await res.json();
+            renderManufacturers(allManufacturers);
+        } catch(e) { console.error(e); }
+    }
+
+    async function renderManufacturers(list) {
+        document.getElementById('mfrCount').textContent = list.length;
+        const container = document.getElementById('manList');
+
+        if (!list.length) {
+            container.innerHTML = `<div class="empty-state"><div class="icon">🏭</div><h3>No manufacturers found</h3><p>Try a different city.</p></div>`;
+            return;
+        }
+
+        // Check unlock status for each manufacturer in parallel
+        const unlockChecks = await Promise.all(
+            list.map(m =>
+                fetch(`/check-unlock/${buyerEmail}/${m.email}`)
+                    .then(r => r.json())
+                    .then(d => ({ email: m.email, unlocked: d.unlocked }))
+                    .catch(() => ({ email: m.email, unlocked: false }))
+            )
+        );
+        const unlockMap = {};
+        unlockChecks.forEach(u => unlockMap[u.email] = u.unlocked);
+
+        container.innerHTML = list.map(m => {
+            const unlocked = unlockMap[m.email];
+            const initial = encodeURIComponent(m.name.charAt(0));
+            const logoSrc = m.logo
+                ? `/uploads/${m.logo}`
+                : `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='76'%3E%3Crect fill='%23667eea' width='76' height='76' rx='38'/%3E%3Ctext fill='white' x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='30'%3E${initial}%3C/text%3E%3C/svg%3E`;
+
+            const contactBtn = unlocked
+                ? `<button class="btn-contact-unlocked" onclick="viewContact('${m.email}')">✅ View Details</button>`
+                : `<button class="btn-contact-locked" onclick="openUnlockModal('${m.email}')">🔒 Unlock Contact (1 🪙)</button>`;
+
+            return `
+                <div class="manufacturer-card">
+                    <img src="${logoSrc}" class="mfr-logo" alt="${m.name}"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2276%22 height=%2276%22%3E%3Crect fill=%22%23667eea%22 width=%2276%22 height=%2276%22 rx=%2238%22/%3E%3Ctext fill=%22white%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2230%22%3E${initial}%3C/text%3E%3C/svg%3E'">
+                    <div class="mfr-name">${m.name}</div>
+                    <div class="mfr-city">📍 ${m.city || '—'}</div>
+                    ${m.specialization ? `<div class="mfr-spec">🏷️ ${m.specialization}</div>` : '<div class="mfr-spec"></div>'}
+                    <div class="mfr-btns">
+                        <button class="btn-catalogue" onclick="openCatalogue('${m.email}')">📂 Catalogue</button>
+                        ${contactBtn}
+                    </div>
+                </div>`;
+        }).join('');
+    }
+
+    function filterManufacturers() {
+        const q = document.getElementById('citySearch').value.toLowerCase();
+        renderManufacturers(allManufacturers.filter(m => (m.city || '').toLowerCase().includes(q)));
+    }
+
+    function openCatalogue(email) {
+        location.href = '/catalogue.html?email=' + email;
+    }
+
+    // ── UNLOCK FLOW ──
+    function openUnlockModal(mfrEmail) {
+        if (currentCredits < 1) {
+            showToast('❌ Not enough credits! You need at least 1 credit.', 'error');
+            return;
+        }
+        pendingUnlockEmail = mfrEmail;
+        document.getElementById('modalCredits').textContent = currentCredits;
+        document.getElementById('unlockModal').classList.add('open');
+    }
+
+    function closeModal() {
+        document.getElementById('unlockModal').classList.remove('open');
+        pendingUnlockEmail = null;
+    }
+
+    async function confirmUnlock() {
+        if (!pendingUnlockEmail) return;
+        const targetEmail = pendingUnlockEmail;  // save before closeModal() nulls it
+        closeModal();
+
+        try {
+            const res = await fetch('/unlock-contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ buyerEmail, manufacturerEmail: targetEmail })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                currentCredits = data.credits !== undefined ? data.credits : currentCredits - 1;
+                document.getElementById('creditsDisplay').textContent = currentCredits;
+                showToast('🔓 Contact unlocked! Opening details...', 'success');
+                setTimeout(() => {
+                    location.href = '/manufacturer-details.html?email=' + encodeURIComponent(targetEmail);
+                }, 1000);
+            } else {
+                showToast('❌ ' + data.message, 'error');
+            }
+        } catch(e) {
+            showToast('❌ Error unlocking contact.', 'error');
+        }
+    }
+
+    // ── VIEW CONTACT ──
+    function viewContact(mfrEmail) {
+        location.href = '/manufacturer-details.html?email=' + encodeURIComponent(mfrEmail);
+    }
+
+    // ── PRODUCTS ──
+    async function loadAllProducts() {
+        try {
+            const res = await fetch('/manufacturers');
+            const manufacturers = await res.json();
+            allProducts = [];
+
+            for (const m of manufacturers) {
+                const r2 = await fetch('/products/' + m.email);
+                const prods = await r2.json();
+                prods.forEach(p => allProducts.push({ ...p, manufacturerName: m.name }));
+            }
+            renderProducts(allProducts);
+        } catch(e) { console.error(e); }
+    }
+
+    function renderProducts(list) {
+        document.getElementById('productCount').textContent = list.length;
+        const container = document.getElementById('productsList');
+
+        if (!list.length) {
+            container.innerHTML = `<div class="empty-state"><div class="icon">📦</div><h3>No products found</h3><p>Try a different search.</p></div>`;
+            return;
+        }
+
+        container.innerHTML = list.map(p => `
+            <div class="product-card" onclick="location.href='/product.html?id=${p._id}'">
+                <img src="/uploads/${p.image}" alt="${p.name}" class="product-img"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%22190%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22240%22 height=%22190%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22%3E📦%3C/text%3E%3C/svg%3E'">
+                <div class="product-info">
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-price">₹${p.price}</div>
+                    <div class="product-cat">📁 ${p.category}${p.manufacturerName ? ' &nbsp;·&nbsp; 🏭 ' + p.manufacturerName : ''}</div>
+                </div>
+            </div>`).join('');
+    }
+
+    function filterProducts() {
+        const q = document.getElementById('productSearch').value.toLowerCase();
+        renderProducts(allProducts.filter(p =>
+            p.name.toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q)
+        ));
+    }
+
+    // ── LOGOUT ──
+    function logout() { localStorage.clear(); location.href = '/login.html'; }
+
+    function goHome() {
+        const role = localStorage.getItem('role');
+        if (role === 'manufacturer') location.href = '/manufacturer.html';
+        else if (role === 'buyer') location.href = '/buyer.html';
+        else location.href = '/index.html';
+    }
+
+    // Close modal on overlay click
+    document.getElementById('unlockModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+</script>
+</body>
+</html>

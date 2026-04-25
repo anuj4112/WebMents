@@ -1,0 +1,573 @@
+{
+  "project_info": {
+    "name": "WebMents",
+    "description": "B2B Garment Manufacturing Platform",
+    "author": "Anuj Singla",
+    "roll_no": "2210991317",
+    "institution": "Chitkara University, Rajpura, Punjab"
+  },
+  
+  "users": [
+    {
+      "name": "ABC Garments Pvt Ltd",
+      "email": "abc@manufacturer.com",
+      "password": "test123",
+      "role": "manufacturer",
+      "city": "Mumbai",
+      "phone": "+91-9876543210",
+      "address": "123, Industrial Area, Andheri East, Mumbai - 400069",
+      "gst": "27AABCU9603R1ZM",
+      "established": "2015",
+      "specialization": "Cotton Garments",
+      "verified": true
+    },
+    {
+      "name": "XYZ Textiles Manufacturing",
+      "email": "xyz@manufacturer.com",
+      "password": "test123",
+      "role": "manufacturer",
+      "city": "Delhi",
+      "phone": "+91-9876543211",
+      "address": "456, Textile Hub, Okhla Industrial Area, Delhi - 110020",
+      "gst": "07AABCU9603R1ZN",
+      "established": "2012",
+      "specialization": "Formal Wear",
+      "verified": true
+    },
+    {
+      "name": "Fashion Hub Industries",
+      "email": "fashion@manufacturer.com",
+      "password": "test123",
+      "role": "manufacturer",
+      "city": "Bangalore",
+      "phone": "+91-9876543212",
+      "address": "789, Export Zone, Peenya Industrial Area, Bangalore - 560058",
+      "gst": "29AABCU9603R1ZO",
+      "established": "2018",
+      "specialization": "Casual Wear",
+      "verified": true
+    },
+    {
+      "name": "Premium Garments Co",
+      "email": "premium@manufacturer.com",
+      "password": "test123",
+      "role": "manufacturer",
+      "city": "Ludhiana",
+      "phone": "+91-9876543213",
+      "address": "321, Garment District, Focal Point, Ludhiana - 141010",
+      "gst": "03AABCU9603R1ZP",
+      "established": "2010",
+      "specialization": "Winter Wear",
+      "verified": true
+    },
+    {
+      "name": "Ethnic Wear Manufacturers",
+      "email": "ethnic@manufacturer.com",
+      "password": "test123",
+      "role": "manufacturer",
+      "city": "Jaipur",
+      "phone": "+91-9876543214",
+      "address": "654, Handicraft Zone, Sitapura Industrial Area, Jaipur - 302022",
+      "gst": "08AABCU9603R1ZQ",
+      "established": "2016",
+      "specialization": "Traditional Wear",
+      "verified": true
+    },
+    {
+      "name": "Wholesale Traders Pvt Ltd",
+      "email": "wholesale@buyer.com",
+      "password": "test123",
+      "role": "buyer",
+      "city": "Mumbai",
+      "phone": "+91-9876543220",
+      "address": "111, Market Street, Crawford Market, Mumbai - 400001",
+      "gst": "27AABCU9603R1ZR",
+      "business_type": "Wholesale",
+      "verified": true
+    },
+    {
+      "name": "Retail Chain Solutions",
+      "email": "retail@buyer.com",
+      "password": "test123",
+      "role": "buyer",
+      "city": "Delhi",
+      "phone": "+91-9876543221",
+      "address": "222, Shopping Complex, Connaught Place, Delhi - 110001",
+      "gst": "07AABCU9603R1ZS",
+      "business_type": "Retail Chain",
+      "verified": true
+    },
+    {
+      "name": "Export House International",
+      "email": "export@buyer.com",
+      "password": "test123",
+      "role": "buyer",
+      "city": "Bangalore",
+      "phone": "+91-9876543222",
+      "address": "333, Trade Center, MG Road, Bangalore - 560001",
+      "gst": "29AABCU9603R1ZT",
+      "business_type": "Export",
+      "verified": true
+    },
+    {
+      "name": "Fashion Boutique Network",
+      "email": "boutique@buyer.com",
+      "password": "test123",
+      "role": "buyer",
+      "city": "Chennai",
+      "phone": "+91-9876543223",
+      "address": "444, Fashion Street, T Nagar, Chennai - 600017",
+      "gst": "33AABCU9603R1ZU",
+      "business_type": "Boutique Chain",
+      "verified": true
+    },
+    {
+      "name": "Online Marketplace Ventures",
+      "email": "online@buyer.com",
+      "password": "test123",
+      "role": "buyer",
+      "city": "Pune",
+      "phone": "+91-9876543224",
+      "address": "555, Tech Park, Hinjewadi, Pune - 411057",
+      "gst": "27AABCU9603R1ZV",
+      "business_type": "E-commerce",
+      "verified": true
+    }
+  ],
+  
+  "products": [
+    {
+      "name": "Premium Cotton T-Shirt",
+      "price": 250,
+      "category": "T-Shirts",
+      "manufacturerEmail": "abc@manufacturer.com",
+      "description": "100% premium cotton, breathable fabric, perfect for summer",
+      "stock": 5000,
+      "minOrder": 100,
+      "colors": ["White", "Black", "Navy Blue", "Grey"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "100% Cotton",
+      "gsm": "180 GSM"
+    },
+    {
+      "name": "Polo Neck T-Shirt",
+      "price": 350,
+      "category": "T-Shirts",
+      "manufacturerEmail": "abc@manufacturer.com",
+      "description": "Classic polo design with collar, ideal for casual wear",
+      "stock": 3000,
+      "minOrder": 50,
+      "colors": ["White", "Black", "Red", "Green"],
+      "sizes": ["S", "M", "L", "XL"],
+      "material": "Cotton Blend",
+      "gsm": "200 GSM"
+    },
+    {
+      "name": "V-Neck Cotton T-Shirt",
+      "price": 280,
+      "category": "T-Shirts",
+      "manufacturerEmail": "abc@manufacturer.com",
+      "description": "Stylish V-neck design, comfortable fit",
+      "stock": 4000,
+      "minOrder": 100,
+      "colors": ["White", "Black", "Maroon", "Navy"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "100% Cotton",
+      "gsm": "180 GSM"
+    },
+    {
+      "name": "Formal Dress Shirt",
+      "price": 450,
+      "category": "Shirts",
+      "manufacturerEmail": "xyz@manufacturer.com",
+      "description": "Professional formal shirt, wrinkle-free fabric",
+      "stock": 2500,
+      "minOrder": 50,
+      "colors": ["White", "Light Blue", "Pink", "Lavender"],
+      "sizes": ["38", "40", "42", "44", "46"],
+      "material": "Cotton Polyester Blend",
+      "gsm": "120 GSM"
+    },
+    {
+      "name": "Casual Check Shirt",
+      "price": 380,
+      "category": "Shirts",
+      "manufacturerEmail": "xyz@manufacturer.com",
+      "description": "Trendy check pattern, perfect for casual outings",
+      "stock": 3500,
+      "minOrder": 75,
+      "colors": ["Blue Check", "Red Check", "Green Check", "Black Check"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "100% Cotton",
+      "gsm": "150 GSM"
+    },
+    {
+      "name": "Denim Casual Shirt",
+      "price": 420,
+      "category": "Shirts",
+      "manufacturerEmail": "xyz@manufacturer.com",
+      "description": "Classic denim shirt, durable and stylish",
+      "stock": 2000,
+      "minOrder": 50,
+      "colors": ["Light Blue", "Dark Blue", "Black"],
+      "sizes": ["S", "M", "L", "XL"],
+      "material": "Denim",
+      "gsm": "200 GSM"
+    },
+    {
+      "name": "Slim Fit Jeans",
+      "price": 650,
+      "category": "Jeans",
+      "manufacturerEmail": "fashion@manufacturer.com",
+      "description": "Modern slim fit design, stretchable denim",
+      "stock": 4000,
+      "minOrder": 100,
+      "colors": ["Blue", "Black", "Grey"],
+      "sizes": ["28", "30", "32", "34", "36", "38"],
+      "material": "Stretch Denim",
+      "gsm": "300 GSM"
+    },
+    {
+      "name": "Regular Fit Jeans",
+      "price": 580,
+      "category": "Jeans",
+      "manufacturerEmail": "fashion@manufacturer.com",
+      "description": "Comfortable regular fit, classic style",
+      "stock": 5000,
+      "minOrder": 100,
+      "colors": ["Blue", "Black", "Light Blue"],
+      "sizes": ["28", "30", "32", "34", "36", "38", "40"],
+      "material": "Denim",
+      "gsm": "280 GSM"
+    },
+    {
+      "name": "Cargo Pants",
+      "price": 550,
+      "category": "Pants",
+      "manufacturerEmail": "fashion@manufacturer.com",
+      "description": "Multi-pocket cargo design, utility wear",
+      "stock": 3000,
+      "minOrder": 75,
+      "colors": ["Khaki", "Olive Green", "Black", "Navy"],
+      "sizes": ["28", "30", "32", "34", "36", "38"],
+      "material": "Cotton Twill",
+      "gsm": "250 GSM"
+    },
+    {
+      "name": "Woolen Sweater",
+      "price": 850,
+      "category": "Winter Wear",
+      "manufacturerEmail": "premium@manufacturer.com",
+      "description": "Warm woolen sweater, perfect for winter",
+      "stock": 2000,
+      "minOrder": 50,
+      "colors": ["Black", "Grey", "Navy", "Maroon"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "Wool Blend",
+      "gsm": "400 GSM"
+    },
+    {
+      "name": "Hooded Sweatshirt",
+      "price": 680,
+      "category": "Winter Wear",
+      "manufacturerEmail": "premium@manufacturer.com",
+      "description": "Comfortable hoodie with front pocket",
+      "stock": 3500,
+      "minOrder": 75,
+      "colors": ["Black", "Grey", "Navy", "Red"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "Cotton Fleece",
+      "gsm": "320 GSM"
+    },
+    {
+      "name": "Winter Jacket",
+      "price": 1200,
+      "category": "Winter Wear",
+      "manufacturerEmail": "premium@manufacturer.com",
+      "description": "Insulated winter jacket, water-resistant",
+      "stock": 1500,
+      "minOrder": 25,
+      "colors": ["Black", "Navy", "Olive Green"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "Polyester with Padding",
+      "gsm": "500 GSM"
+    },
+    {
+      "name": "Kurta Pajama Set",
+      "price": 750,
+      "category": "Ethnic Wear",
+      "manufacturerEmail": "ethnic@manufacturer.com",
+      "description": "Traditional kurta pajama, comfortable cotton",
+      "stock": 2500,
+      "minOrder": 50,
+      "colors": ["White", "Cream", "Light Blue", "Pink"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "Cotton",
+      "gsm": "180 GSM"
+    },
+    {
+      "name": "Embroidered Kurta",
+      "price": 950,
+      "category": "Ethnic Wear",
+      "manufacturerEmail": "ethnic@manufacturer.com",
+      "description": "Designer kurta with hand embroidery",
+      "stock": 1500,
+      "minOrder": 25,
+      "colors": ["White", "Maroon", "Royal Blue", "Green"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "Cotton Silk",
+      "gsm": "200 GSM"
+    },
+    {
+      "name": "Nehru Jacket",
+      "price": 1100,
+      "category": "Ethnic Wear",
+      "manufacturerEmail": "ethnic@manufacturer.com",
+      "description": "Classic Nehru jacket, perfect for occasions",
+      "stock": 1000,
+      "minOrder": 20,
+      "colors": ["Black", "Navy", "Maroon", "Gold"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "material": "Silk Blend",
+      "gsm": "250 GSM"
+    }
+  ],
+  
+  "orders": [
+    {
+      "orderId": "ORD001",
+      "buyerEmail": "wholesale@buyer.com",
+      "manufacturerEmail": "abc@manufacturer.com",
+      "items": [
+        {
+          "productName": "Premium Cotton T-Shirt",
+          "quantity": 500,
+          "price": 250,
+          "subtotal": 125000
+        },
+        {
+          "productName": "Polo Neck T-Shirt",
+          "quantity": 200,
+          "price": 350,
+          "subtotal": 70000
+        }
+      ],
+      "total": 195000,
+      "status": "confirmed",
+      "orderDate": "2026-04-15",
+      "expectedDelivery": "2026-05-15",
+      "paymentMethod": "Bank Transfer",
+      "shippingAddress": "111, Market Street, Crawford Market, Mumbai - 400001"
+    },
+    {
+      "orderId": "ORD002",
+      "buyerEmail": "retail@buyer.com",
+      "manufacturerEmail": "xyz@manufacturer.com",
+      "items": [
+        {
+          "productName": "Formal Dress Shirt",
+          "quantity": 300,
+          "price": 450,
+          "subtotal": 135000
+        }
+      ],
+      "total": 135000,
+      "status": "shipped",
+      "orderDate": "2026-04-10",
+      "expectedDelivery": "2026-05-10",
+      "paymentMethod": "Credit",
+      "shippingAddress": "222, Shopping Complex, Connaught Place, Delhi - 110001"
+    },
+    {
+      "orderId": "ORD003",
+      "buyerEmail": "export@buyer.com",
+      "manufacturerEmail": "fashion@manufacturer.com",
+      "items": [
+        {
+          "productName": "Slim Fit Jeans",
+          "quantity": 1000,
+          "price": 650,
+          "subtotal": 650000
+        },
+        {
+          "productName": "Regular Fit Jeans",
+          "quantity": 800,
+          "price": 580,
+          "subtotal": 464000
+        }
+      ],
+      "total": 1114000,
+      "status": "pending",
+      "orderDate": "2026-04-20",
+      "expectedDelivery": "2026-05-20",
+      "paymentMethod": "LC (Letter of Credit)",
+      "shippingAddress": "333, Trade Center, MG Road, Bangalore - 560001"
+    },
+    {
+      "orderId": "ORD004",
+      "buyerEmail": "boutique@buyer.com",
+      "manufacturerEmail": "ethnic@manufacturer.com",
+      "items": [
+        {
+          "productName": "Embroidered Kurta",
+          "quantity": 150,
+          "price": 950,
+          "subtotal": 142500
+        },
+        {
+          "productName": "Nehru Jacket",
+          "quantity": 100,
+          "price": 1100,
+          "subtotal": 110000
+        }
+      ],
+      "total": 252500,
+      "status": "delivered",
+      "orderDate": "2026-04-05",
+      "expectedDelivery": "2026-05-05",
+      "deliveredDate": "2026-05-03",
+      "paymentMethod": "Bank Transfer",
+      "shippingAddress": "444, Fashion Street, T Nagar, Chennai - 600017"
+    },
+    {
+      "orderId": "ORD005",
+      "buyerEmail": "online@buyer.com",
+      "manufacturerEmail": "premium@manufacturer.com",
+      "items": [
+        {
+          "productName": "Hooded Sweatshirt",
+          "quantity": 600,
+          "price": 680,
+          "subtotal": 408000
+        },
+        {
+          "productName": "Woolen Sweater",
+          "quantity": 400,
+          "price": 850,
+          "subtotal": 340000
+        }
+      ],
+      "total": 748000,
+      "status": "confirmed",
+      "orderDate": "2026-04-18",
+      "expectedDelivery": "2026-05-18",
+      "paymentMethod": "Online Payment",
+      "shippingAddress": "555, Tech Park, Hinjewadi, Pune - 411057"
+    }
+  ],
+  
+  "categories": [
+    {
+      "name": "T-Shirts",
+      "description": "Casual and comfortable t-shirts",
+      "icon": "👕",
+      "productCount": 3
+    },
+    {
+      "name": "Shirts",
+      "description": "Formal and casual shirts",
+      "icon": "👔",
+      "productCount": 3
+    },
+    {
+      "name": "Jeans",
+      "description": "Denim jeans in various fits",
+      "icon": "👖",
+      "productCount": 2
+    },
+    {
+      "name": "Pants",
+      "description": "Casual and formal pants",
+      "icon": "👖",
+      "productCount": 1
+    },
+    {
+      "name": "Winter Wear",
+      "description": "Warm clothing for winter",
+      "icon": "🧥",
+      "productCount": 3
+    },
+    {
+      "name": "Ethnic Wear",
+      "description": "Traditional Indian clothing",
+      "icon": "🥻",
+      "productCount": 3
+    }
+  ],
+  
+  "statistics": {
+    "totalManufacturers": 5,
+    "totalBuyers": 5,
+    "totalProducts": 15,
+    "totalOrders": 5,
+    "totalRevenue": 2444500,
+    "averageOrderValue": 488900,
+    "topCategory": "Jeans",
+    "topCity": "Mumbai",
+    "industrySize": "15.5 Trillion INR",
+    "expectedCostSavings": "40-60%",
+    "marketReach": "Global"
+  },
+  
+  "testimonials": [
+    {
+      "name": "Rajesh Kumar",
+      "company": "ABC Garments Pvt Ltd",
+      "role": "manufacturer",
+      "rating": 5,
+      "comment": "WebMents has transformed our business! We've reduced travel costs by 60% and reached 10x more buyers.",
+      "date": "2026-04-10"
+    },
+    {
+      "name": "Priya Sharma",
+      "company": "Wholesale Traders Pvt Ltd",
+      "role": "buyer",
+      "rating": 5,
+      "comment": "Finding quality manufacturers is now so easy. The platform is user-friendly and saves us a lot of time.",
+      "date": "2026-04-12"
+    },
+    {
+      "name": "Amit Patel",
+      "company": "Fashion Hub Industries",
+      "role": "manufacturer",
+      "rating": 4,
+      "comment": "Great platform for showcasing our products. We've received orders from cities we never reached before.",
+      "date": "2026-04-15"
+    },
+    {
+      "name": "Sneha Reddy",
+      "company": "Retail Chain Solutions",
+      "role": "buyer",
+      "rating": 5,
+      "comment": "The search and filter features are excellent. We can quickly find exactly what we need.",
+      "date": "2026-04-18"
+    }
+  ],
+  
+  "faqs": [
+    {
+      "question": "How do I register as a manufacturer?",
+      "answer": "Click on 'Get Started', select 'Manufacturer' role, fill in your business details, and upload your logo. You'll be able to start adding products immediately after registration."
+    },
+    {
+      "question": "What is the minimum order quantity?",
+      "answer": "Minimum order quantity varies by product and manufacturer. It's typically mentioned in the product details. Most manufacturers accept orders starting from 50-100 pieces."
+    },
+    {
+      "question": "How do I contact a manufacturer?",
+      "answer": "You can view the manufacturer's contact details on their profile page. Click on any manufacturer card to see their email and phone number."
+    },
+    {
+      "question": "Is there any commission or fee?",
+      "answer": "Currently, WebMents is free for all users. We don't charge any commission on transactions."
+    },
+    {
+      "question": "How do I track my orders?",
+      "answer": "Manufacturers can view all orders in their dashboard. Buyers can contact manufacturers directly for order status updates."
+    },
+    {
+      "question": "Can I export products internationally?",
+      "answer": "Yes! Many manufacturers on our platform handle international orders. Contact them directly to discuss export requirements and shipping."
+    }
+  ]
+}

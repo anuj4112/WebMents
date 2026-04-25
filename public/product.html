@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product Details</title>
+
+<style>
+    body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7fb;
+}
+
+/* Container spacing */
+.section {
+    padding: 20px;
+}
+
+/* Card design */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Buttons */
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Images */
+img {
+    border-radius: 10px;
+}
+body {
+    font-family: Arial;
+    text-align: center;
+}
+
+.container {
+    border:1px solid black;
+    width:300px;
+    margin:auto;
+    padding:20px;
+}
+
+img {
+    width:100%;
+}
+.navbar {
+    background: #007bff;
+    padding: 15px 20px;
+    color: white;
+}
+
+.logo {
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+    <div class="navbar">
+    <div class="logo" onclick="goHome()">WebMents</div>
+</div>
+
+<h2>Product Details</h2>
+
+<div id="box"></div>
+
+<script>
+    function goHome(){
+    const role = localStorage.getItem("role");
+
+    if(role === "buyer"){
+        location.href = "/buyer.html";
+    }
+    else if(role === "manufacturer"){
+        location.href = "/manufacturer.html";
+    }
+    else{
+        location.href = "/login.html";
+    }
+}
+
+// GET PRODUCT ID
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+// LOAD PRODUCT
+async function load(){
+
+    const res = await fetch('/product/' + id);
+    const p = await res.json();
+
+    if(!p){
+        box.innerHTML = "Product not found";
+        return;
+    }
+
+    box.innerHTML = `
+        <div class="container">
+            <img src="/uploads/${p.image}">
+            <h3>${p.name}</h3>
+            <p><b>Price:</b> ₹${p.price}</p>
+            <p><b>Category:</b> ${p.category}</p>
+
+            <button onclick="history.back()">⬅ Back</button>
+        </div>
+    `;
+}
+
+load();
+
+</script>
+
+</body>
+</html>
