@@ -3,93 +3,71 @@ WebMents Backend Runner
 Author: Anuj Singla (2210991317)
 Institution: Chitkara University, Rajpura, Punjab
 
-This is the main entry point for running the WebMents backend server.
+Usage:
+    python run.py              # development (debug on, port 3000)
+    PORT=5000 python run.py    # custom port
 """
 
 import os
 from app import app, mongo
-from models import create_indexes, insert_sample_data
 
-def initialize_database():
-    """Initialize database with indexes and sample data"""
-    print("\n" + "=" * 60)
-    print("Initializing Database...")
-    print("=" * 60)
-    
+def check_db():
     try:
-        # Test MongoDB connection
         mongo.db.command('ping')
-        print("✅ MongoDB connection successful")
-        
-        # Create indexes
-        create_indexes(mongo.db)
-        
-        # Optionally insert sample data (comment out if not needed)
-        # insert_sample_data(mongo.db)
-        
-        print("=" * 60)
-        print("Database initialization complete!")
-        print("=" * 60 + "\n")
-        
+        print('✅  MongoDB connected')
     except Exception as e:
-        print(f"❌ Database initialization failed: {e}")
-        print("Please ensure MongoDB is running on mongodb://127.0.0.1:27017")
-        print("=" * 60 + "\n")
+        print(f'❌  MongoDB connection failed: {e}')
+        print('    Ensure MongoDB is running: mongod --dbpath /data/db')
         exit(1)
 
+def print_banner():
+    print('\n' + '='*60)
+    print('  🚀  WebMents Python Backend')
+    print('='*60)
+    print(f'  Author : Anuj Singla (2210991317)')
+    print(f'  Uni    : Chitkara University, Rajpura, Punjab')
+    print(f'  DB     : {app.config["MONGO_URI"]}')
+    print(f'  Port   : {PORT}')
+    print('='*60)
+    print('\n  Endpoints:')
+    endpoints = [
+        ('POST', '/signup',                          'Register user'),
+        ('POST', '/login',                           'Login → JWT'),
+        ('GET',  '/profile/<email>',                 'User profile'),
+        ('PUT',  '/update-profile',                  'Update profile'),
+        ('POST', '/add-product',                     'Add product'),
+        ('GET',  '/products/<email>',                'Manufacturer products'),
+        ('GET',  '/product/<id>',                    'Single product'),
+        ('PUT',  '/update-product/<id>',             'Update product'),
+        ('DEL',  '/delete-product/<id>',             'Delete product'),
+        ('GET',  '/manufacturers',                   'All manufacturers'),
+        ('GET',  '/credits/<email>',                 'Buyer credits'),
+        ('POST', '/add-credits',                     'Add credits'),
+        ('GET',  '/check-unlock/<b>/<m>',            'Check unlock'),
+        ('POST', '/unlock-contact',                  'Unlock contact (1 credit)'),
+        ('GET',  '/manufacturer-contact/<b>/<m>',   'Get contact details'),
+        ('POST', '/order',                           'Place order'),
+        ('GET',  '/orders/<email>',                  'Get orders'),
+        ('PUT',  '/order-status/<id>',               'Update order status'),
+        ('GET',  '/search?q=',                       'Global search'),
+        ('GET',  '/stats/<email>',                   'Dashboard stats'),
+        ('GET',  '/health',                          'Health check'),
+    ]
+    for method, path, desc in endpoints:
+        print(f'  {method:<5} {path:<40} {desc}')
+    print('\n' + '='*60)
+    print(f'  Server: http://localhost:{PORT}')
+    print('  Press Ctrl+C to stop')
+    print('='*60 + '\n')
 
-def print_startup_info():
-    """Print startup information"""
-    print("\n" + "=" * 60)
-    print("🚀 WebMents Backend Server")
-    print("=" * 60)
-    print(f"Author: Anuj Singla (2210991317)")
-    print(f"Institution: Chitkara University, Rajpura, Punjab")
-    print("=" * 60)
-    print(f"Environment: {'Development' if app.debug else 'Production'}")
-    print(f"MongoDB URI: {app.config['MONGO_URI']}")
-    print(f"Upload Folder: {app.config['UPLOAD_FOLDER']}")
-    print(f"Max File Size: {app.config['MAX_CONTENT_LENGTH'] / (1024*1024):.0f}MB")
-    print("=" * 60)
-    print("Server starting on: http://localhost:3000")
-    print("=" * 60)
-    print("\n📋 Available Endpoints:")
-    print("  - GET  /                    → Landing page")
-    print("  - POST /signup              → User registration")
-    print("  - POST /login               → User authentication")
-    print("  - POST /add-product         → Add product")
-    print("  - GET  /products/<email>    → Get manufacturer products")
-    print("  - GET  /product/<id>        → Get single product")
-    print("  - PUT  /update-product/<id> → Update product")
-    print("  - DELETE /delete-product/<id> → Delete product")
-    print("  - GET  /manufacturers       → Get all manufacturers")
-    print("  - POST /order               → Place order")
-    print("  - GET  /orders/<email>      → Get manufacturer orders")
-    print("=" * 60)
-    print("\n✨ Server is ready! Press Ctrl+C to stop.\n")
 
+PORT = int(os.environ.get('PORT', 3000))
 
 if __name__ == '__main__':
-    # Ensure upload directory exists
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    
-    # Initialize database
-    initialize_database()
-    
-    # Print startup information
-    print_startup_info()
-    
-    # Run the application
+    check_db()
+    print_banner()
     try:
-        app.run(
-            host='0.0.0.0',
-            port=3000,
-            debug=True,
-            use_reloader=True
-        )
+        app.run(host='0.0.0.0', port=PORT, debug=True, use_reloader=True)
     except KeyboardInterrupt:
-        print("\n\n" + "=" * 60)
-        print("🛑 Server stopped by user")
-        print("=" * 60 + "\n")
-    except Exception as e:
-        print(f"\n❌ Server error: {e}\n")
+        print('\n🛑  Server stopped\n')

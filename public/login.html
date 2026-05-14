@@ -273,13 +273,15 @@
                 const data = await res.json();
 
                 if (data.role === "buyer") {
-                    localStorage.setItem("email", emailInput.value);
+                    localStorage.setItem("email", emailInput.value.trim().toLowerCase());
                     localStorage.setItem("role", "buyer");
                     localStorage.setItem("credits", data.credits || 0);
+                    if (data.token) localStorage.setItem("token", data.token);
                     location.href = "/buyer.html";
                 } else if (data.role === "manufacturer") {
-                    localStorage.setItem("email", emailInput.value);
+                    localStorage.setItem("email", emailInput.value.trim().toLowerCase());
                     localStorage.setItem("role", "manufacturer");
+                    if (data.token) localStorage.setItem("token", data.token);
                     location.href = "/manufacturer.html";
                 } else {
                     showError('Invalid email or password');
